@@ -1,0 +1,106 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Speech to Text Experiment</title>
+    <meta charset="utf-8" />
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="https://cdn.WebRTC-Experiment.com/MediaStreamRecorder.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+
+    <!-- <script src="js/bundle.js"></script> -->
+    <!-- <script src="js/watson-speech.min.js"></script> -->
+
+    <script type="text/javascript" src ="node_modules/watson-developer-cloud/dist/watson.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="./node_modules/msr/MediaStreamRecorder.js"> </script>
+<script>
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDhyZl_PJSmDgzjMZb6xBH8IyFn74rHv4U",
+    authDomain: "speech2text-3ab74.firebaseapp.com",
+    databaseURL: "https://speech2text-3ab74.firebaseio.com",
+    projectId: "speech2text-3ab74",
+    storageBucket: "gs://speech2text-3ab74.appspot.com",
+    messagingSenderId: "947156179107"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+</head>
+<body style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:13px;">
+    <div id="warning">
+        <h1 style="font-weight:500;">Speech Recognition SDK not found.</h1>
+        <h2 style="font-weight:500;">Please execute <code>npm run bundle</code> and reload.</h2>
+    </div>
+    <div id="content" style="display:none">
+        <table width="100%">
+            <tr>
+                <td></td>
+                <td>
+                    <h1 style="font-weight:500;">Speech Recognition Experiment</h1>
+                
+                </td>
+            </tr>
+            
+            <!-- <tr>
+                <td align="right">Input:</td>
+                <td align="left">
+                    <select id="inputSource"> -->
+                        <!-- <option value="Mic" selected="selected">Microphone</option> -->
+                        <!-- <option value="File">Audio File</option>
+                    </select>
+                </td>
+            </tr> -->
+            <tr>
+                <td></td>
+                <td>
+                    <button id="start-recording">Start</button>
+                    <button id="stop-recording">Stop</button>            
+                    <!-- <button id="startBtn" disabled="disabled">Start</button>
+                    <button id="stopBtn" disabled="disabled">Stop</button> -->
+                    <!-- <input type="file" id="filePicker" accept=".wav" style="display:none"/> -->
+                    
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>Results:</td>
+                            <td>Current hypothesis:</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea id="phraseDiv" style="display: inline-block;width:500px;height:200px"></textarea>
+                            </td>
+                            <td style="vertical-align: top">
+                                <span id="hypothesisDiv" style="width:200px;height:200px;display:block;"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Status:</td>
+                <td align="left"><span id="statusDiv"></span></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- SDK REFERENCE -->
+    <script src="distrib/speech.sdk.bundle.js"></script>
+    <!-- SDK USAGE -->
+    
+
+<script type="text/javascript" src ="js/Record.js"></script>
+<script type="text/javascript" src ="js/azure.js"></script>
+<!-- <script type="text/javascript" src ="js/watson.js"></script> -->
+</body>
+</html> -->
