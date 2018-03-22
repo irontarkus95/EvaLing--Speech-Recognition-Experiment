@@ -30,7 +30,7 @@ function getFile(fileList,name){
 
         if (fileExists) {
             clearInterval(timeout);
-            let audioStream = fs.createReadStream("js/audio/other.wav");
+            let audioStream = fs.createReadStream(path);
             let subscriptionKey = '041b277e4fa149c7b4d9dd1cbb4066aa';
             let client = new BingSpeechClient(subscriptionKey);
             client.recognizeStream(audioStream).then(response =>{
@@ -44,13 +44,14 @@ function getFile(fileList,name){
 
 module.exports = {
     recognize: function(file,key){
+        var filename = 'js/audio/'+key+'.wav';
         var bucket = admin.storage().bucket();
         bucket.getFiles({}, (err, files,apires) => { download(getFile(files,file)).then(data => {
-        fs.writeFileSync('js/audio/other.wav', data);        
+        fs.writeFileSync(filename, data);        
         })});
         
     // Checks every 2 seconds to see if file was created
-        setCheck("js/audio/other.wav",2000,key);
+        setCheck(filename,2000,key);
     
     }
 }

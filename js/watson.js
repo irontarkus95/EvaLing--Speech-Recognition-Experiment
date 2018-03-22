@@ -21,7 +21,7 @@ function getFile(fileList,name){
 }
 admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      storageBucket: "gs://speech2text-3ab74.appspot.com/"
+      storageBucket: "gs://vrexpr.appspot.com/"
   });
 
 
@@ -36,12 +36,12 @@ admin.initializeApp({
 
         if (fileExists) {
             clearInterval(timeout);
-            var stream = fs.createReadStream('js/audio/record.wav')
-            .pipe(speechToText.createRecognizeStream({content_type: 'audio/l16; rate=44100'}))
-            .pipe(fs.createWriteStream('./transcription.txt'))
+            var stream = fs.createReadStream(path)
+            .pipe(speechToText.createRecognizeStream())
+            .pipe(fs.createWriteStream('./Transcripts/'+key+'.txt'))
             
             stream.on('finish', function(){
-                        fs.readFile("./transcription.txt", 'utf8', 
+                        fs.readFile("./Transcripts/"+key+".txt", 'utf8', 
                       function(err, data) {
                           if (err) throw err;
                           console.log(data)
@@ -55,16 +55,16 @@ admin.initializeApp({
 
 module.exports = {
   RecognizeWatson: function(name,key){
-  
+    var filename = 'js/audio/'+key+'.wav';
 
   try{
     var bucket = admin.storage().bucket();
     bucket.getFiles({}, (err, files,apires) => { download(getFile(files,name)).then(data => {
-      fs.writeFileSync('js/audio/record.wav', data);
+      fs.writeFileSync(filename, data);
 
     });});
     // wait until files are created then process
-    setCheck("js/audio/record.wav",2000,key);
+    setCheck(filename,2000,key);
    
   }
   catch (err) {

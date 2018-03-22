@@ -20,14 +20,14 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 var firebase = require('firebase');
 
 var config = {
-  apiKey: "AIzaSyDhyZl_PJSmDgzjMZb6xBH8IyFn74rHv4U",
-  authDomain: "speech2text-3ab74.firebaseapp.com",
-  databaseURL: "https://speech2text-3ab74.firebaseio.com",
-  projectId: "speech2text-3ab74",
-  storageBucket: "speech2text-3ab74.appspot.com",
-  messagingSenderId: "947156179107"
-};
-firebase.initializeApp(config);
+    apiKey: "AIzaSyAQVtLUDbwAhwSHVIC5g8_t1wgiI6agNfQ",
+    authDomain: "vrexpr.firebaseapp.com",
+    databaseURL: "https://vrexpr.firebaseio.com",
+    projectId: "vrexpr",
+    storageBucket: "vrexpr.appspot.com",
+    messagingSenderId: "499258811526"
+  };
+  firebase.initializeApp(config);
 
 
 app.get('/',function(req,res){
@@ -37,7 +37,7 @@ app.get('/',function(req,res){
 app.post("/watson",urlencodedParser,function(req,res){
     var ref  = firebase.database().ref("Speech-To-Text");
     var key = ref.push().key;
-    var file = "audio/"+req.body["name"]+".wav";
+    var file = req.body["name"]+".wav";
     watson.RecognizeWatson(file,key);
 
 })
