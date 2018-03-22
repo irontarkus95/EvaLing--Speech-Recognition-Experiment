@@ -39,22 +39,27 @@ app.post("/watson",urlencodedParser,function(req,res){
     var key = ref.push().key;
     var file = "audio/"+req.body["name"]+".wav";
     watson.RecognizeWatson(file,key);
-    azure.recognize(file,key);
-    res.end('Watson recognized');
+
 })
 
 app.post("/google",urlencodedParser,function(req,res){
     console.log(req.body["name"]);
-    // watson.trial(req.body);
-    // res.render("watson")
 })
 
 app.post("/azure",urlencodedParser,function(req,res){
-    // console.log(req.body["name"]);
-    var str = {};
-    console.log(azure.recognize("Kerschel",str));
-    res.end('Azure recognized');
-    // res.render("watson")
+    var ref  = firebase.database().ref("Speech-To-Text");
+    var key = ref.push().key;
+    azure.recognize(file,key);
+    res.end('Watson recognized');
+})
+
+app.post("/all",urlencodedParser,function(req,res){
+    var ref  = firebase.database().ref("Speech-To-Text");
+    var key = ref.push().key;
+    var file = "audio/"+req.body["name"]+".wav";
+    watson.RecognizeWatson(file,key);
+    azure.recognize(file,key);
+    res.end('Need to add status message here');
 })
 
 app.listen(8080,function(){

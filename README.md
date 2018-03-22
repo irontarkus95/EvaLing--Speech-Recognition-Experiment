@@ -1,9 +1,16 @@
-To launch sample-server.js
-1. `echo YOUR_BING_SPEECH_API_KEY > speech.key`
-
-2. `npm install`
+# To launch Experiment
  
-3.  * The server and the client are on the same subnet:
-    `node sample-server.js`.
-    * The server and the client are on different subnets, server is not accessible from the outside:
-    `node sample-server.js enableTunnel` 
+
+1. `run npm install`
+    * Installs dependencies. If adding any more packages to node js use :
+    `npm install packagename --save`
+
+2. `Run server`
+    * In order to not have to refresh the node js server all the time use use `nodemon` in terminal
+
+3. `Making post request to the API's`
+    Make post request of the filename to:
+    * /watson for the watson api
+    * /google for the google api
+    * /azure for the azure api
+    * /all for simultaneous processing of the api calls
