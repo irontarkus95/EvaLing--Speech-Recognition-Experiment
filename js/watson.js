@@ -19,28 +19,53 @@ function getFile(fileList,name){
     return fileList[i]['metadata']["mediaLink"];
   }
 }
-
-module.exports = {
-  RecognizeWatson: function(name){
-  admin.initializeApp({
+admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       storageBucket: "gs://speech2text-3ab74.appspot.com/"
   });
-  var value = "stdd";
+
+
+  function setCheck(path, timeout,key) {
+    timeout = setInterval(function() {
+
+        const file = path;
+        const fileExists = fs.existsSync(file);
+
+        console.log('Checking for: ', file);
+        console.log('Exists: ', fileExists);
+
+        if (fileExists) {
+            clearInterval(timeout);
+            var stream = fs.createReadStream('js/audio/record.wav')
+            .pipe(speechToText.createRecognizeStream({content_type: 'audio/l16; rate=44100'}))
+            .pipe(fs.createWriteStream('./transcription.txt'))
+            
+            stream.on('finish', function(){
+                        fs.readFile("./transcription.txt", 'utf8', 
+                      function(err, data) {
+                          if (err) throw err;
+                          console.log(data)
+                          fire.writeToDatabase({"Watson":{"Response":data}},key);
+                    })
+                  });
+        }
+    }, timeout);
+
+};
+
+module.exports = {
+  RecognizeWatson: function(name,key){
+  
+
   try{
     var bucket = admin.storage().bucket();
     bucket.getFiles({}, (err, files,apires) => { download(getFile(files,name)).then(data => {
-      fs.writeFileSync('js/audio/test.wav', data);
+      fs.writeFileSync('js/audio/record.wav', data);
 
-        fs.createReadStream('js/audio/test.wav')
-      .pipe(speechToText.createRecognizeStream({content_type: 'audio/l16; rate=44100'}))
-      .pipe(fs.createWriteStream('./transcription.txt'));
     });});
-
-    fs.readFile("./transcription.txt", 'utf8', function(err, data) {
-      if (err) throw err;
-      fire.writeToDatabase("testing",1,data,"Watson");
-    });
+    // wait until files are created then process
+    setCheck("js/audio/record.wav",2000,key);
+   
   }
   catch (err) {
     console.log(err);
@@ -48,8 +73,7 @@ module.exports = {
   finally{
     
   }
-  
-    // or streaming 
+
 }
 
 }
