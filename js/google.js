@@ -2,6 +2,16 @@
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
+// const flac      = require('node-flac'),
+//       wav       = require('node-wav'),
+//       wavReader = new wav.Reader()
+ 
+// wavReader.on('format', function (format) {
+//   const flacEncoder = new flac.FlacEncoder(format)
+ 
+//   wavReader.pipe(flacEncoder).pipe(fs.createWriteStream('output.flac'))
+// })
+
 // Your Google Cloud Platform project ID
 const projectId = 'speech2text-3ab74';
 
@@ -11,7 +21,7 @@ const client = new speech.SpeechClient({
 });
 
 // The name of the audio file to transcribe
-const fileName = 'audio/e.flac';
+const fileName = 'audio/audio.flac';
 
 // Reads a local audio file and converts it to base64
 const file = fs.readFileSync(fileName);

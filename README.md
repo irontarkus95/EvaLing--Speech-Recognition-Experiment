@@ -14,3 +14,8 @@
     * /google for the google api
     * /azure for the azure api
     * /all for simultaneous processing of the api calls
+
+    Make the post request with the file and the firebase key to store the data under.
+    file key = "audiofile"
+    firebase key = "key"
+    sentence key = "phrase"

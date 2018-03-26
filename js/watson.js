@@ -25,57 +25,26 @@ admin.initializeApp({
   });
 
 
-  function setCheck(path, timeout,key) {
-    timeout = setInterval(function() {
 
-        const file = path;
-        const fileExists = fs.existsSync(file);
-
-        console.log('Checking for: ', file);
-        console.log('Exists: ', fileExists);
-
-        if (fileExists) {
-            clearInterval(timeout);
-            var stream = fs.createReadStream(path)
-            .pipe(speechToText.createRecognizeStream())
-            .pipe(fs.createWriteStream('./Transcripts/'+key+'.txt'))
-            
-            stream.on('finish', function(){
-                        fs.readFile("./Transcripts/"+key+".txt", 'utf8', 
-                      function(err, data) {
-                          if (err) throw err;
-                          console.log(data)
-                          fire.writeToDatabase({"Watson":{"Response":data}},key);
-                    })
-                  });
-        }
-    }, timeout);
-
-};
 
 module.exports = {
-  RecognizeWatson: function(name,key){
-    var filename = 'js/audio/'+key+'.wav';
+  RecognizeWatson: function(file,key,sentence){
 
-  try{
-    var bucket = admin.storage().bucket();
-    bucket.getFiles({}, (err, files,apires) => { download(getFile(files,name)).then(data => {
-      fs.writeFileSync(filename, data);
-
-    });});
-    // wait until files are created then process
-    setCheck(filename,2000,key);
-   
-  }
-  catch (err) {
-    console.log(err);
-  }
-  finally{
-    
-  }
+    const fileExists = fs.stat(file,function(err,stats){
+          var stream = fs.createReadStream(file)
+          .pipe(speechToText.createRecognizeStream())
+          .pipe(fs.createWriteStream('./Transcripts/'+key+'.txt'))
+          
+          stream.on('finish', function(){
+                      fs.readFile("./Transcripts/"+key+".txt", 'utf8', 
+                    function(err, data) {
+                        if (err) throw err;
+                        console.log(data)
+                        fire.writeToDatabase({"Watson":{"Response":data}},key,sentence);
+                  })
+                });
+      });  
 
 }
-
 }
-
 // RecognizeWatson(name);
