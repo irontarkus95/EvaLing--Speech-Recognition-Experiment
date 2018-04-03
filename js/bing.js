@@ -5,42 +5,10 @@ const { BingSpeechClient, VoiceRecognitionResponse } = require('bingspeech-api-c
 var fs = require("fs");
 var admin = require("firebase-admin");
 var fire= require("./firebase.js");
-var serviceAccount = require("./services/services.json");
 const download = require('download');
+var stringSimilarity = require('string-similarity');
 // Bing Speech Key (https://www.microsoft.com/cognitive-services/en-us/subscriptions)
 
-// function getFile(fileList,name){
-//     for(var i=0;i<fileList.length;i++){
-//       if(fileList[i]["metadata"]['name']==name){
-//           console.log(fileList[i]['metadata']["mediaLink"]);
-//       return fileList[i]['metadata']["mediaLink"];
-//       }
-//     }
-//   }
-
-// // wwait for file to exist every few secs
-//   function setCheck(path, timeout,key) {
-//     timeout = setInterval(function() {
-
-//         const file = path;
-//         const fileExists = fs.existsSync(file);
-
-//         console.log('Checking for: ', file);
-//         console.log('Exists: ', fileExists);
-
-//         if (fileExists) {
-//             clearInterval(timeout);
-//             let audioStream = fs.createReadStream(path);
-//             let subscriptionKey = '041b277e4fa149c7b4d9dd1cbb4066aa';
-//             let client = new BingSpeechClient(subscriptionKey);
-//             client.recognizeStream(audioStream).then(response =>{
-//                 fire.writeToDatabase({"Azure":{"Response":response.results[0].name}},key);
-//             }
-//                 );
-//         }
-//     }, timeout);
-
-// };
 
 module.exports = {
         recognize: function(file,key,sentence){
@@ -50,7 +18,9 @@ module.exports = {
                 let subscriptionKey = '8783eba6791a45cc869e699236e6edda';
                 let client = new BingSpeechClient(subscriptionKey);
                 client.recognizeStream(audioStream).then(response =>{
-                    fire.writeToDatabase({"Azure":{"Response":response.results[0].name}},key,sentence);
+                    var sim = stringSimilarity.compareTwoStrings(sentence, response.results[0].name);
+                        
+                    fire.writeToDatabase({"Azure":{"Response":response.results[0].name,"Similarity":sim}},key,sentence);
             });
         });
     }
