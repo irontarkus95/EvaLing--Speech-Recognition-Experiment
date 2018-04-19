@@ -15,7 +15,7 @@ module.exports = {
             const fileExists = fs.stat(file,function(err,stats){
              
                 let audioStream = fs.createReadStream(file);
-                let subscriptionKey = '8783eba6791a45cc869e699236e6edda';
+                let subscriptionKey = '73965710465e460092766577b1c17f27';
                 let client = new BingSpeechClient(subscriptionKey);
                 client.recognizeStream(audioStream).then(response =>{
                     var sim = stringSimilarity.compareTwoStrings(sentence, response.results[0].name);
