@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Results</title>
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- script
+    ================================================== -->
+	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+	
+	<!-- <script>
+        // Initialize Firebase
+        var config = 
+		{
+            apiKey: "AIzaSyDhyZl_PJSmDgzjMZb6xBH8IyFn74rHv4U",
+            authDomain: "speech2text-3ab74.firebaseapp.com",
+            databaseURL: "https://speech2text-3ab74.firebaseio.com",
+            projectId: "speech2text-3ab74",
+            storageBucket: "gs://speech2text-3ab74.appspot.com",
+            messagingSenderId: "947156179107"
+        };
+        firebase.initializeApp(config);
+    </script> -->
+	
+    <script src="js/modernizr.js"></script>
+    <script src="js/pace.min.js"></script>
+	
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <!-- <script src="js/highcharts/highcharts.js"></script>
+    <script src="js/highcharts/highcharts-3d.js"></script>
+    <script src="js/highcharts/exporting.js"></script> -->
+    <script src="js/highcharts/highcharts.js"></script>
+    <script src="js/highcharts/highcharts-more.js"></script>
+    <script src="js/highcharts/solid-gauge.js"></script>
+	
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+        <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <nav class="header-nav">
+
+            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+            <div class="header-nav__content">
+                <h3>Navigation</h3>
+                
+                <ul class="header-nav__list">
+                    <li class="current"><a href="/" title="home">Home</a></li>
+                    <li><a href="/#about" title="about">About</a></li>
+                    <li><a href="/#clients" title="clients">Meet the Team</a></li>
+                    <li><a href="/#contact" title="contact">Contact</a></li>
+                </ul>
+
+            </div> <!-- end header-nav__content -->
+
+        </nav>  <!-- end header-nav -->
+
+        <a class="header-menu-toggle" href="#0">
+            <span class="header-menu-text">Menu</span>
+            <span class="header-menu-icon"></span>
+        </a>
+
+    </header> <!-- end s-header -->
+
+    <h3 style="color:white; text-align:center;">Results <br>Hover to see percentage</h3>
+    <div id = "center">
+        <div id = "container" data-key=<%= key %>></div>
+        <div id = "container1"></div>
+    </div>
+
+     <!-- Java Script
+    ================================================== -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/query_db.js"></script>
+</body>
+</html>

@@ -1,1 +1,603 @@
-<h2>Speech to Text</h2>
+<!DOCTYPE html>
+<!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="https://cdn.WebRTC-Experiment.com/MediaStreamRecorder.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <!-- <script src="js/bundle.js"></script> -->
+    <!-- <script src="js/watson-speech.min.js"></script> -->
+
+    <!-- <script type="text/javascript" src ="node_modules/watson-developer-cloud/dist/watson.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script src="./node_modules/msr/MediaStreamRecorder.js"> </script> -->
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDhyZl_PJSmDgzjMZb6xBH8IyFn74rHv4U",
+            authDomain: "speech2text-3ab74.firebaseapp.com",
+            databaseURL: "https://speech2text-3ab74.firebaseio.com",
+            projectId: "speech2text-3ab74",
+            storageBucket: "gs://speech2text-3ab74.appspot.com",
+            messagingSenderId: "947156179107"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>EvaLing</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/vendor.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="assets/js/modernizr.js"></script>
+    <script src="assets/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+</head>
+
+<body id="top">
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="index.html">
+                <img src="assets/images/logo.png" alt="Homepage">
+            </a>
+        </div>
+
+        <nav class="header-nav">
+
+            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+            <div class="header-nav__content">
+                <h3>Navigation</h3>
+                
+                <ul class="header-nav__list">
+                    <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
+                    <li><a class="smoothscroll"  href="#testing" title="testing">Participate</a></li>
+                    <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
+                    <li><a class="smoothscroll"  href="#clients" title="clients">Meet the Team</a></li>
+                    <li><a class="smoothscroll"  href="#contact" title="contact">Contact</a></li>
+                </ul>
+
+            </div> <!-- end header-nav__content -->
+
+        </nav>  <!-- end header-nav -->
+
+        <a class="header-menu-toggle" href="#0">
+            <span class="header-menu-text">Menu</span>
+            <span class="header-menu-icon"></span>
+        </a>
+
+    </header> <!-- end s-header -->
+
+    <!-- home
+    ================================================== -->
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="assets/images/hero-bg.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+
+        <div class="overlay"></div>
+        <div class="shadow-overlay"></div>
+
+        <div class="home-content">
+
+            <div class="row home-content__main">
+
+                <h3>Welcome to EvaLing</h3>
+
+                <h1 style = "padding-left: 100px;">
+                    We are an independant <br>
+                    research group focused on <br>
+                    enhancing user experience <br>
+                    by improving speech recognition <br>
+                    with Caribbean Dialects.
+                </h1>
+
+                <div class="home-content__buttons">
+                    <a href="#testing" class="smoothscroll btn btn--stroke">
+                        Jump to Testing!
+                    </a>
+                    <a href="#about" class="smoothscroll btn btn--stroke">
+                        More About Us
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="home-content__scroll">
+                <a href="#about" class="scroll-link smoothscroll">
+                    <span>Scroll Down</span>
+                </a>
+            </div>
+
+            <div class="home-content__line"></div>
+
+        </div> <!-- end home-content -->
+
+    </section> <!-- end s-home -->
+
+
+    <!-- about
+    ================================================== -->
+    <section id='about' class="s-about">
+
+        <div class="row section-header has-bottom-sep" data-aos="fade-up">
+            <div class="col-full">
+                <h1 class="display-1 display-1--light">We Are EvaLing</h1>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="row about-desc" data-aos="fade-up">
+            <div class="col-full">
+                <p>
+                    Speech recognition systems are in high demand, and have far-reaching and important applications for the future. 
+                    However, these systems are most effective when the speaker has a common tongue. Therefore, it is less accurate when recognising Caribbean dialects. This begs the question, <br><br>"Which platform is best for me?" <br><br>
+                    We hope with EvaLing we can help consumers and organisations determine the best speech recognition system for their uses and localisation, and additionally to help further the development of such systems.
+                </p>
+            </div>
+        </div> <!-- end about-desc -->
+
+        <div class="row about-stats stats block-1-4 block-m-1-2 block-mob-full" data-aos="fade-up">
+                
+            <div class="col-block stats__col">
+                <div class="stats__count">102</div>
+                <h5 style= "color: white;">Participants so far!</h5> 
+            </div>
+
+        </div> <!-- end about-stats -->
+
+        <div class="about__line"></div>
+
+    </section> <!-- end s-about -->
+
+
+    <!-- services
+    ================================================== -->
+    <section id='services' class="s-services">
+
+        <div class="row section-header has-bottom-sep" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">Speech Recognition Systems used</h3>
+                <h1 class="display-2">Made possible by</h1>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="row services-list block-1-2 block-tab-full">
+
+            <div class="col-block service-item" data-aos="fade-up">
+                <div>
+                    <img src="assets/images/watson.gif" alt="Watson" style = "width: 13%; float: left; border-radius: 50%;">
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">IBM's Watson</h3>
+                    <p>IBM Watson's Speech to Text service provides an API to add speech transcription capabilities to applications. It combines information about language structure with the composition of the audio signal.
+
+                    <div>
+                        <a href=" https://www.ibm.com/watson/services/speech-to-text/" target="_blank" class="btn btn--stroke">More Info...</a>
+                    </div>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-block service-item" data-aos="fade-up">
+                <div>
+                    <img src="assets/images/microsoft.png" alt="Azure" style = "width: 15%; float: left;">
+                </div>
+                <div class="service-text">
+                    <h3 class="h2">Microsoft's Azure</h3>
+                    <p>Microsoft Cognitive Services are a set of APIs, SDKs and services available to developers to make their applications more intelligent, engaging and discoverable. The cloud-based Speech API, used here, transcribes audio streams into text that can be displayed to the user.
+                    <div>
+                        <a href="https://azure.microsoft.com/en-us/services/cognitive-services/speech/" target="_blank" class="btn btn--stroke">More Info...</a>
+                    </div>
+                    </p>
+                </div>
+            </div>
+
+        </div> <!-- end services-list -->
+
+    </section> <!-- end s-services -->
+
+    <!-- clients
+    ================================================== -->
+    <section id="clients" class="s-clients">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h1 class="display-2">Meet the Team</h1>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="row clients-testimonials" data-aos="fade-up">
+                <div class="col-full">
+                    <div class="testimonials">
+
+                        <div class="testimonials__slide">
+                        
+                                <p>
+                                    Kerschel James is a Masters' student at the University of the West Indies. he's always eager to assist those in need and, for his exemplary academic and extracurricular record, was award the Huawei Seeds of the Future Internship in 2016. 
+                                </p>
+                                <a href="https://github.com/Kerschel" target = "_blank" class="align-items-center btn btn--transit">More Info...</a>
+        
+                                <img src="assets/images/avatars/kerschel.jpg" alt="Author image" class="testimonials__avatar">
+                                <div class="testimonials__info">
+                                    <span class="testimonials__name">Kerschel James</span> 
+                                    <span class="testimonials__pos">Student, Department of Computing and Information Technology, UWI</span>
+                                </div>
+                        </div>
+
+                        <div class="testimonials__slide">
+                            
+                                <p>Kyle DeFreitas obtained his masters in Computer Science at UWI. He is a reknowned lecturer at UWI. His research interests include Data Mining,
+                                    Data Visualization, Mobile Development and Software Engineering. Some research project he has worked on are AgriNeTT and mFisheries and is 
+                                    currently pursuing his PhD in Computer Science. You can visit his website
+                                    <a href = "http://kyledef.org/" target = "_blank" >here</a>.
+                                </p>
+                                <a href="https://sta.uwi.edu/fst/dcit/staff-profiles/Kyle-De-Freitas" target = "_blank" class="align-items-center btn btn--transit">More Info...</a>
+        
+                                <img src="assets/images/avatars/kyle.jpg" alt="Author image" class="testimonials__avatar">
+                                <div class="testimonials__info">
+                                    <span class="testimonials__name">Kyle DeFreitas</span> 
+                                    <span class="testimonials__pos">Project Leader, Instructor, Department of Computing and Information Technology, UWI</span>
+                                </div>
+                        </div>
+
+                        <div class="testimonials__slide">
+                            
+                                <p>Michael Ali is a student at the University of the West Indies, studying Computer Science, performing research under Kyle Defreitas. He has worked on many machine learning projects involving weather prediction, image classification and now with Mr Defreitas, they are working on Natural Language Processing with a focus on understanding Caribbean dialects.
+                                </p>
+                                <a href="https://www.linkedin.com/in/michael-ali-79531932/" target = "_blank" class="align-items-center btn btn--transit">More Info...</a>
+        
+                                <img src="assets/images/avatars/michael.jpg" alt="Author image" class="testimonials__avatar">
+                                <div class="testimonials__info">
+                                    <span class="testimonials__name">Michael Ali</span> 
+                                    <span class="testimonials__pos">Student, Department of Computing and Information Technology, UWI</span>
+                                </div>
+        
+                        </div>
+    
+                        <div class="testimonials__slide">
+    
+                            <p>Qarun Bissoondial is a student of the University of the West Indies, pursuing a degree in Computer Science. A determined and devout individual, he wishes for many more hours in the day, as he is hungry for knowledge.
+                            </p>
+                            <a href="https://www.linkedin.com/in/qarun-bissoondial-706925158/" target = "_blank" class="align-items-center btn btn--transit">More Info...</a>
+    
+                            <img src="assets/images/avatars/qarun.jpg" alt="Author image" class="testimonials__avatar">
+                            <div class="testimonials__info">
+                                <span class="testimonials__name">Qarun Bissondial</span> 
+                                <span class="testimonials__pos">Student, Department of Computing and Information Technology, UWI</span>
+                            </div>
+    
+                        </div>
+    
+                        <div class="testimonials__slide">
+                            
+                            <p>Kristan Birbalsingh is a student of the University of the West Indies, pursuing a degree in Computer Science. He's a diligent worker with a passion for web development and music. He is eager for to perform reserach under Mr Defreitas.</p>
+                            <a href="https://www.linkedin.com/in/kristan-birbalsingh-0514aa105/" target = "_blank" class="align-items-center btn btn--transit">More Info...</a>
+    
+                            <img src="assets/images/avatars/kristan.jpg" alt="Author image" class="testimonials__avatar">
+                            <div class="testimonials__info">
+                                <span class="testimonials__name">Kristan Birbalsingh</span> 
+                                <span class="testimonials__pos">Student, Department of Computing and Information Technology, UWI</span>
+                            </div>
+    
+                        </div>
+    
+                        <div class="testimonials__slide">
+                            
+                            <p>Gabriela Sewdhan is a student of the University of the West Indies, who holds a prior undergraduate degree in Psychology, and is currently pursuing a second degree in Computer Science. Her passion is emotionally intelligent artificial intelligence, robotics and baking.
+                            </p>
+                            <a href="https://www.linkedin.com/in/gabriela-ali-3ba495120/" target = "_blank" class="align-items-center btn btn--transit">More Info...</a>
+    
+                            <img src="assets/images/avatars/a2.jpg" alt="Author image" class="testimonials__avatar">
+                            <div class="testimonials__info">
+                                <span class="testimonials__name">Gabriela Sewdhan</span> 
+                                <span class="testimonials__pos">Student, Department of Computing and Information Technology, UWI</span>
+                            </div>
+    
+                        </div>
+    
+    
+                    </div><!-- end testimonials -->
+                    
+                </div> <!-- end col-full -->
+            </div> <!-- end client-testimonials -->
+
+    </section> <!-- end s-clients -->
+
+    <!-- Testing Section -->
+    <section id="testing" class = "s-testing">
+
+       <div class="row">
+            <div class="col-md-12">
+                <div style= "text-align: center;"> 
+                <div class="container">
+                    <h1 class="display-4"style = "color: white;">Speech Recognition Experiment</h1>
+                </div>
+                </div>        
+            </div> 
+        </div>
+            
+        <div class="row text-center">
+            <div class="offset-md-2 col-md-8">
+                <div class="card" id = "card">
+                    <div class="card-body" style = "background: rgba(0,0,0,0.85);">
+                        <h4 class="card-title" style = "color: white;">Speech Input</h4> <hr>
+                        <form class = "form" onsubmit = "return false;">
+                            <div class="form-group">
+                                <label for="text_to_send" style = "color: white; font-size: 17px;">Type a statement:</label>
+                                <textarea  name="text_to_send" id="text_to_send" 
+                                        cols="30" rows="10"
+                                        class = "form-control"
+                                        placeholder = "Type a statement to send to the API"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="choose_input"style = "color: white; font-size: 17px;">Make a Recording</label>
+                                <button id = "get_audio" class="half-width btn-primary">Start Recording</button>
+                                <button id = "stop_audio" class="half-width btn-danger">Stop Recording</button>
+                            </div>
+                            <hr>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </section>
+
+    <!-- contact
+    ================================================== -->
+    <section id="contact" class="s-contact">
+
+        <div class="overlay"></div>
+        <!-- <div class="contact__line"></div> -->
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">Contact Us</h3>
+                <h1 class="display-2 display-2--light">Reach out for more information or just say hello</h1>
+            </div>
+        </div>
+
+        <div class="row contact-content" data-aos="fade-up">
+            
+            <div class="contact-primary">
+
+                <h3 class="h6">Send Us A Message</h3>
+
+                <form name="contactForm" id="contactForm" method="post" action="" novalidate="novalidate">
+                    <fieldset>
+    
+                    <div class="form-field">
+                        <input name="contactName" type="text" id="contactName" placeholder="Your Name" value="" minlength="2" required="" aria-required="true" class="full-width">
+                    </div>
+                    <div class="form-field">
+                        <input name="contactEmail" type="email" id="contactEmail" placeholder="Your Email" value="" required="" aria-required="true" class="full-width">
+                    </div>
+                    <div class="form-field">
+                        <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="" class="full-width">
+                    </div>
+                    <div class="form-field">
+                        <textarea name="contactMessage" id="contactMessage" placeholder="Your Message" rows="10" cols="50" required="" aria-required="true" class="full-width"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <button class="full-width btn--primary">Submit</button>
+                        <div class="submit-loader">
+                            <div class="text-loader">Sending...</div>
+                            <div class="s-loader">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    </fieldset>
+                </form>
+
+                <!-- contact-warning -->
+                <div class="message-warning">
+                    Something went wrong. Please try again.
+                </div> 
+            
+                <!-- contact-success -->
+                <div class="message-success">
+                    Your message was sent, thank you!<br>
+                </div>
+
+            </div> <!-- end contact-primary -->
+
+            <div class="contact-secondary">
+                <div class="contact-info">
+
+                    <h3 class="h6 hide-on-fullwidth">Contact Info</h3>
+
+                    <div class="cinfo">
+                        <h5>Where to Find Us</h5>
+                        <p>
+                            Faculty of Science and Technology<br>
+                            The University of the West Indies<br>
+                            St. Augustine Campus <br>
+                            Trinidad & Tobago, W.I.
+                        </p>
+                    </div>
+
+                    <div class="cinfo">
+                        <h5>Email Us At</h5>
+                        <p>
+                            dcit@sta.uwi.edu<br>
+                            kyle.defrietas@sta.uwi.edu
+                        </p>
+                    </div>
+
+                    <div class="cinfo">
+                        <h5>Call Us At</h5>
+                        <p>
+                            Phone: (868) 662-2002 Ext. 83098/83640<br>
+                            Fax: (868) 645-7132
+                        </p>
+                    </div>
+
+                    <ul class="contact-social">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                        </li>
+                    </ul> <!-- end contact-social -->
+
+                </div> <!-- end contact-info -->
+            </div> <!-- end contact-secondary -->
+
+        </div> <!-- end contact-content -->
+
+    </section> <!-- end s-contact -->
+
+
+    <!-- footer
+    ================================================== -->
+    <footer>
+
+        <div class="row footer-main">
+
+            <div class="col-six tab-full left footer-desc">
+                <div class="footer-logo"></div>
+                <p style = "margin-top: -80px;"> Making you better understood.
+                    </p>
+            </div>
+
+            <div class="col-six tab-full right footer-subscribe">
+
+                <h4>Subscribe for Updates</h4>
+                <p>Subscribe to follow our continuous development of this project and help along the way!</p>
+
+                <div class="subscribe-form">
+                    <form id="mc-form" class="group" novalidate="true">
+                        <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+                        <input type="submit" name="subscribe" value="Subscribe">
+                        <label for="mc-email" class="subscribe-message"></label>
+                    </form>
+                </div>
+
+            </div>
+
+        </div> <!-- end footer-main -->
+
+        <div class="row footer-bottom">
+                <div class="go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top"><i class="icon-arrow-up" aria-hidden="true"></i></a>
+                </div>
+            <!-- </div> -->
+
+        </div> <!-- end footer-bottom -->
+
+    </footer> <!-- end footer -->
+
+
+    <!-- photoswipe background
+    ================================================== -->
+    <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
+
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
+                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
+                    "Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
+                "Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale-pulse-out">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SDK REFERENCE -->
+    <script src="distrib/speech.sdk.bundle.js"></script>
+    <!-- SDK USAGE -->
+    
+<script type="text/javascript" src ="assets/js/bing.js"></script>
+<script type="text/javascript" src ="assets/js/watson.js"></script>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/record.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

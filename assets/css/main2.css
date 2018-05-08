@@ -1,0 +1,13 @@
+.card {
+	margin: 20px;
+}
+
+#choose_input {
+	margin: 10px;
+	width: 100%;
+}
+
+.jumbotron {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}

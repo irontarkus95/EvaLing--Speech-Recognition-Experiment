@@ -1,21 +1,14 @@
 # To launch Experiment
- 
 
 1. `run npm install`
-    * Installs dependencies. If adding any more packages to node js use :
-    `npm install packagename --save`
+    * Installs dependencies
 
-2. `Run server`
-    * In order to not have to refresh the node js server all the time use use `nodemon` in terminal
+2. `node server`
 
-3. `Making post request to the API's`
-    Make post request of the filename to:
-    * /watson for the watson api
-    * /google for the google api
-    * /azure for the azure api
-    * /all for simultaneous processing of the api calls
+3. Locally, visit 'http://127.0.0.1:8080/'. App is also hosted at http://evalinginfo2602.herokuapp.com/
 
-    Make the post request with the file and the firebase key to store the data under.
-    file key = "audiofile"
-    firebase key = "key"
-    sentence key = "phrase"
+4. Scroll down to Speech Recognition Experiment section, enter text to speak and record
+
+5. Stop recording sends audio to server
+
+6. Redirects to results page displaying Accuracy results
